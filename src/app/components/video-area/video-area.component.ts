@@ -8,7 +8,7 @@ import { from } from 'rxjs/observable/from';
   styleUrls: ['./video-area.component.css']
 })
 export class VideoAreaComponent {
-  videoUrl;
+  videoUrl = 'http://static.videogular.com/assets/videos/videogular.ogg';
   videoFile;
   videoMaxSize = 4048;
 
@@ -23,49 +23,32 @@ export class VideoAreaComponent {
 
   onFileChangeVideos(e) {
     const { files } = e.target;
-    // const filesKeys = Object.keys(files);
-
-    // filesKeys
-    //   .filter((i, index) => index < 2)
-    //   .filter(i => {
-    //     const file = files[i];
-    //     if (file.type.startsWith('video')) {
-    //       return file;
-    //     }
-    //   })
-    //   .forEach(n => {
-    //     if (files[n].size / 1024 < this.videoMaxSize) {
-    //       this._transformVideoAsDataUrl(files[n]);
-    //     }
-    //   });
-
-    this.videoUrl = files.name;
+    console.log(files);
+    // if (files.type.startsWith('video')) {
+    this.readUploadedFileAsDataURL(files[0]).then((video: string) => {
+      this.videoUrl = video;
+      console.log(video);
+    });
+    // }
   }
 
-  // private _transformVideoAsDataUrl(file: File) {
-  //   this.videoFile = file;
-  //   this.readUploadedFileAsDataURL(file).then((video: string) => {
-  //     this.videoUrl = video;
-  //   });
-  // }
+  private readUploadedFileAsDataURL = inputFile => {
+    const temporaryFileReader = new FileReader();
 
-  // private readUploadedFileAsDataURL = inputFile => {
-  //   const temporaryFileReader = new FileReader();
+    return new Promise((resolve, reject) => {
+      if (!inputFile) {
+        resolve(null);
+      }
 
-  //   return new Promise((resolve, reject) => {
-  //     if (!inputFile) {
-  //       resolve(null);
-  //     }
+      temporaryFileReader.onerror = () => {
+        temporaryFileReader.abort();
+        reject(new Error('Problem parsing input file.'));
+      };
 
-  //     temporaryFileReader.onerror = () => {
-  //       temporaryFileReader.abort();
-  //       reject(new Error('Problem parsing input file.'));
-  //     };
-
-  //     temporaryFileReader.onload = () => {
-  //       resolve(temporaryFileReader.result);
-  //     };
-  //     temporaryFileReader.readAsDataURL(inputFile);
-  //   });
-  // }
+      temporaryFileReader.onload = () => {
+        resolve(temporaryFileReader.result);
+      };
+      temporaryFileReader.readAsDataURL(inputFile);
+    });
+  };
 }
