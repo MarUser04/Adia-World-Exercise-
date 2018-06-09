@@ -1,0 +1,29 @@
+body {
+  height: 100%;
+}
+
+input #video {
+  border: none;
+}
+#video {
+  color: white;
+}
+
+#vd-player {
+  height: 80%;
+}
+
+#video-div {
+  margin-top: 20px;
+}
+.hide {
+  display: none;
+}
+
+.selectVideo {
+  margin: 15px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
