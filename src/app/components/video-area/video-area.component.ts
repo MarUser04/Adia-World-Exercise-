@@ -9,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./video-area.component.css']
 })
 export class VideoAreaComponent {
-  videoUrl = '';
+  videoUrl: string;
   videoFile;
   videoMaxSize = 4048;
   videoExists = false;
@@ -25,13 +25,10 @@ export class VideoAreaComponent {
 
   onFileChangeVideos(e) {
     const { files } = e.target;
-    console.log(files);
+    console.log(files[0]);
     // if (files.type.startsWith('video')) {
     this.readUploadedFileAsDataURL(files[0]).then((video: string) => {
       this.videoUrl = video;
-      this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(
-        this.videoUrl
-      );
       console.log(this.videoUrl);
       this.videoExists = true;
     });
