@@ -8,7 +8,7 @@ import { from } from 'rxjs/observable/from';
   styleUrls: ['./video-area.component.css']
 })
 export class VideoAreaComponent {
-  videoUrl = 'http://static.videogular.com/assets/videos/videogular.ogg';
+  videoUrl: string;
   videoFile;
   videoMaxSize = 4048;
   videoExists = false;
@@ -23,10 +23,11 @@ export class VideoAreaComponent {
 
   onFileChangeVideos(e) {
     const { files } = e.target;
-    console.log(files);
+    console.log(files[0]);
     // if (files.type.startsWith('video')) {
     this.readUploadedFileAsDataURL(files[0]).then((video: string) => {
       this.videoUrl = video;
+      console.log(this.videoUrl);
       this.videoExists = true;
     });
     // }

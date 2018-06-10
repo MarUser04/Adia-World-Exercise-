@@ -34,7 +34,6 @@ export class MainAreaComponent implements OnInit {
       city: ['', Validators.required]
     });
     this.weatherService.getCurrentWeather('London').subscribe(resp => {
-      console.log(resp);
       this.currentWeather = resp;
       this.temp_c = this.currentWeather.main.temp - 273.15;
       this.temp_c = this.temp_c.toFixed(2);
@@ -45,13 +44,12 @@ export class MainAreaComponent implements OnInit {
         this.currentWeather.coord.lat,
         this.currentWeather.coord.lon
       );
+      setInterval(() => {
+        this.clock = momentTimezone()
+          .tz(this.timezone)
+          .format('HH:mm');
+      }, 1000);
     });
-
-    setInterval(() => {
-      this.clock = momentTimezone()
-        .tz(this.timezone)
-        .format('HH:mm');
-    }, 1000);
   }
 
   ngOnInit() {}
