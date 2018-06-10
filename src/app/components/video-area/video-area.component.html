@@ -5,7 +5,7 @@
   </div>
 </nav>
 
-<div id="video-div">
+<div id="video-div" *ngIf="videoExists">
   <vg-player id="vd-player">
     <vg-overlay-play></vg-overlay-play>
     <vg-buffering></vg-buffering>

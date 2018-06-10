@@ -6,3 +6,29 @@ li {
 #weatherClick {
   cursor: pointer;
 }
+
+.formCity {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1,
+input {
+  margin: 12px;
+}
+
+.formCity button {
+  border: 2px solid #333;
+  background: white;
+  color: #333;
+  padding: 5px 10px;
+  font-weight: bold;
+}
+
+.formCity button:hover {
+  background: #333;
+  color: white;
+  cursor: pointer;
+}

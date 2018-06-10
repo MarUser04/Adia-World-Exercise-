@@ -6,6 +6,9 @@ import {
   FormControl,
   AbstractControl
 } from '@angular/forms';
+import * as moment from 'moment';
+import * as momentTimezone from 'moment-timezone';
+import * as geoTz from 'geo-tz';
 
 import { WeatherService } from '../../services/weather/weather.service';
 
@@ -20,6 +23,8 @@ export class MainAreaComponent implements OnInit {
   temp_f;
   showDialog = false;
   f: FormGroup;
+  clock;
+  timezone;
 
   constructor(
     private weatherService: WeatherService,
@@ -35,13 +40,23 @@ export class MainAreaComponent implements OnInit {
       this.temp_c = this.temp_c.toFixed(2);
       this.temp_f = 1.8 * (this.currentWeather.main.temp - 273.15) + 32;
       this.temp_f = this.temp_f.toFixed(2);
+
+      this.timezone = geoTz(
+        this.currentWeather.coord.lat,
+        this.currentWeather.coord.lon
+      );
     });
+
+    setInterval(() => {
+      this.clock = momentTimezone()
+        .tz(this.timezone)
+        .format('HH:mm');
+    }, 1000);
   }
 
   ngOnInit() {}
 
   updateCity() {
-    console.log(this.f.get('city').value);
     const city = this.f.get('city').value;
     this.weatherService.getCurrentWeather(city).subscribe(resp => {
       this.currentWeather = resp;
@@ -49,6 +64,10 @@ export class MainAreaComponent implements OnInit {
       this.temp_c = this.temp_c.toFixed(2);
       this.temp_f = 1.8 * (this.currentWeather.main.temp - 273.15) + 32;
       this.temp_f = this.temp_f.toFixed(2);
+      this.timezone = geoTz(
+        this.currentWeather.coord.lat,
+        this.currentWeather.coord.lon
+      );
     });
     this.showDialog = !this.showDialog;
   }

@@ -11,7 +11,7 @@ export class VideoAreaComponent {
   videoUrl = 'http://static.videogular.com/assets/videos/videogular.ogg';
   videoFile;
   videoMaxSize = 4048;
-
+  videoExists = false;
   constructor() {}
 
   openFileBrowser(e, name) {
@@ -27,7 +27,7 @@ export class VideoAreaComponent {
     // if (files.type.startsWith('video')) {
     this.readUploadedFileAsDataURL(files[0]).then((video: string) => {
       this.videoUrl = video;
-      console.log(video);
+      this.videoExists = true;
     });
     // }
   }

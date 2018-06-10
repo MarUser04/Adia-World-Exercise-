@@ -3,11 +3,7 @@
     <h2 class="navbar-brand">
       <strong>Adia World</strong>
     </h2>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
+    <div id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item navbar-brand">
           <span id="weatherClick" (click)="(showDialog = !showDialog)">Weather:</span>
@@ -16,7 +12,8 @@
           <strong>F° {{temp_f}}</strong>
         </li>
         <li class="nav-item navbar-brand">
-          Time
+          <span>Time: </span>
+          <strong>{{clock}}</strong>
         </li>
       </ul>
     </div>
@@ -27,7 +24,7 @@
 
 
 <app-dialog [(visible)]="showDialog">
-  <form [formGroup]="f" (ngSubmit)="f.valid && updateCity()">
+  <form class="formCity" [formGroup]="f" (ngSubmit)="f.valid && updateCity()">
     <h1>Enter a city</h1>
     <input type="text" name="city" id="city" formControlName="city" placeholder="Your city">
     <button type="submit">Send</button>
