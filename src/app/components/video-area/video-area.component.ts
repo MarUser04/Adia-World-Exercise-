@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video-area',
@@ -8,11 +9,12 @@ import { from } from 'rxjs/observable/from';
   styleUrls: ['./video-area.component.css']
 })
 export class VideoAreaComponent {
-  videoUrl = 'http://static.videogular.com/assets/videos/videogular.ogg';
+  videoUrl = '';
   videoFile;
   videoMaxSize = 4048;
   videoExists = false;
-  constructor() {}
+  safeURL;
+  constructor(private _sanitizer: DomSanitizer) {}
 
   openFileBrowser(e, name) {
     e.preventDefault();
@@ -27,6 +29,10 @@ export class VideoAreaComponent {
     // if (files.type.startsWith('video')) {
     this.readUploadedFileAsDataURL(files[0]).then((video: string) => {
       this.videoUrl = video;
+      this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(
+        this.videoUrl
+      );
+      console.log(this.videoUrl);
       this.videoExists = true;
     });
     // }

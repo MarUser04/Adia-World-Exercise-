@@ -17,6 +17,10 @@ input #video {
   text-decoration: none;
 }
 
+#video-div {
+  overflow: hidden;
+}
+
 body {
   background: none;
 }
