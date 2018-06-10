@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
   <div class="container">
-    <h2 class="navbar-brand">Adia World</h2>
+    <h2 class="navbar-brand">
+      <strong>Adia World</strong>
+    </h2>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -8,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item navbar-brand">
-          Weather:
+          <span id="weatherClick" (click)="(showDialog = !showDialog)">Weather:</span>
           <span>{{currentWeather?.name}}</span>
           <strong>C° {{temp_c}}</strong>
           <strong>F° {{temp_f}}</strong>
@@ -22,3 +24,12 @@
 </nav>
 
 <app-video-area></app-video-area>
+
+
+<app-dialog [(visible)]="showDialog">
+  <form [formGroup]="f" (ngSubmit)="f.valid && updateCity()">
+    <h1>Enter a city</h1>
+    <input type="text" name="city" id="city" formControlName="city" placeholder="Your city">
+    <button type="submit">Send</button>
+  </form>
+</app-dialog>
