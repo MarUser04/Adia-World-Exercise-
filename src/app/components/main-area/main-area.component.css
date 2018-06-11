@@ -5,6 +5,11 @@ li {
 
 #weatherClick {
   cursor: pointer;
+  border: 1px solid #333;
+  padding: 8px;
+  background: white;
+  color: #333;
+  font-weight: bold;
 }
 
 .formCity {
