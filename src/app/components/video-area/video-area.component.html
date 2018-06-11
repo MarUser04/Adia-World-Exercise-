@@ -1,11 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
   <div class="container">
-    <a href="#" class="selectVideo" (click)="openFileBrowser($event, 'video')">Select your Movie (MP4) </a>
-    <input type="file" name="video" id="video" (change)="onFileChangeVideos($event)" class="hide">
+    <a href="#" class="selectVideo" (click)="openFileBrowser($event, 'video')">Select your Movie here! </a>
+    <input type="file" name="video" id="video" (change)="onFileVideo($event)" class="hide">
   </div>
 </nav>
 
-<div id="video-div" *ngIf="true">
+<div class="message" *ngIf="!videoExists">
+  Your video will be here!
+</div>
+
+<div id="video-div" *ngIf="videoExists">
   <vg-player id="vd-player">
     <vg-overlay-play></vg-overlay-play>
     <vg-buffering></vg-buffering>
@@ -33,12 +37,9 @@
       <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
+    <!-- Current video url -->
     <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin>
-      <!-- <source [src]="videoUrl" type="video/mp4"> -->
-      <source src="http://static.videogular.com/assets/videos/videogular.webm" type="video/webm">
-      <!--
-      <track kind="subtitles" label="English" src="http://static.videogular.com/assets/subs/pale-blue-dot.vtt" srclang="en" default>
-      <track kind="subtitles" label="Español" src="http://static.videogular.com/assets/subs/pale-blue-dot-es.vtt" srclang="es"> -->
+      <source [src]="videoUrl" type="video/mp4">
     </video>
   </vg-player>
 </div>

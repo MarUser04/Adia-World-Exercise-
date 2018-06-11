@@ -22,9 +22,10 @@
   </nav>
 </div>
 
+
 <app-video-area></app-video-area>
 
-
+<!-- Modal for the video loading -->
 <app-dialog [(visible)]="showDialog">
   <form class="formCity" [formGroup]="f" (ngSubmit)="f.valid && updateCity()">
     <h1>Enter a city</h1>

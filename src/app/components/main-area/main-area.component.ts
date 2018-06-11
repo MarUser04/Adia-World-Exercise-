@@ -23,7 +23,7 @@ export class MainAreaComponent implements OnInit {
   temp_f;
   showDialog = false;
   f: FormGroup;
-  clock;
+  clock; // City local time
   timezone;
 
   constructor(
@@ -40,6 +40,7 @@ export class MainAreaComponent implements OnInit {
       this.temp_f = 1.8 * (this.currentWeather.main.temp - 273.15) + 32;
       this.temp_f = this.temp_f.toFixed(2);
 
+      // coordinates to get the timezone
       this.timezone = geoTz(
         this.currentWeather.coord.lat,
         this.currentWeather.coord.lon
@@ -54,6 +55,7 @@ export class MainAreaComponent implements OnInit {
 
   ngOnInit() {}
 
+  // method that updates the city, the weather and time
   updateCity() {
     const city = this.f.get('city').value;
     this.weatherService.getCurrentWeather(city).subscribe(resp => {

@@ -16,6 +16,7 @@ export class VideoAreaComponent {
   safeURL;
   constructor(private _sanitizer: DomSanitizer) {}
 
+  // method for file selection
   openFileBrowser(e, name) {
     e.preventDefault();
 
@@ -23,18 +24,18 @@ export class VideoAreaComponent {
     element.click();
   }
 
-  onFileChangeVideos(e) {
+  // method to get the file url
+  onFileVideo(e) {
     const { files } = e.target;
-    console.log(files[0]);
-    // if (files.type.startsWith('video')) {
-    this.readUploadedFileAsDataURL(files[0]).then((video: string) => {
-      this.videoUrl = video;
-      console.log(this.videoUrl);
-      this.videoExists = true;
-    });
-    // }
+    if (files[0].type.startsWith('video')) {
+      this.readUploadedFileAsDataURL(files[0]).then((video: string) => {
+        this.videoUrl = video;
+        this.videoExists = true;
+      });
+    }
   }
 
+  // convert file to base64
   private readUploadedFileAsDataURL = inputFile => {
     const temporaryFileReader = new FileReader();
 
